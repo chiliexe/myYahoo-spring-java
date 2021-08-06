@@ -1,0 +1,42 @@
+<html layout:decorate="layout">
+
+    <div class="container" layout:fragment="content">
+        <div class="card">
+            <a asp-controller="Home" th:href="@{/criar/}" class="btn waves-effect"><i class="material-icons right">add</i> Criar Pergunta</a>
+            <div class="card-content">
+                <div class="container">
+                    <!--  for loop-->
+
+                        <div class="card row">
+                            <div class="col s4">
+                                <span style="text-align: center;">
+                                    <img src="/images/index.png" alt="" width="70%">
+                                </span>
+                            </div>
+                            <div class="col s8">
+                                <span class="card-title center">
+                                    <h6>titulo da sua pergunta é muito impoertante</h6>
+                                </span>
+                                <div class="card-content">
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore quaerat rem architecto sed vitae quisquam 
+                                        eligendi dolor dolorem at pariatur laboriosam commodi</p>
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id" class="btn waves-effect center">
+                                    <i class="material-icons right">arrow_forward</i> Saber mais
+                                </a>
+                            </div>
+                        </div>
+
+                    <!--  for loop-->
+                    
+    
+                    <!-- pagination -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</html>
