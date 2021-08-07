@@ -9,12 +9,24 @@
             </div>
 
             <div class="card-content">
+                <blockquote>Enviaremos uma chave de acesso para seu email <br>
+                    Para editar esta dúvida, você precisa da chave de acesso <br>
+                    Por isso precisamos que informe seu email mais abaixo (não será divulgado)
+                </blockquote>
                 <form method="POST" th:object="${question}">
                     <div class="row">
                         <div class="input-field col s12">
                             <label for="title">Título</label>
                             <input th:field="*{title}" type="text" class="validate" required maxlength="220">
                             <span th:errors="*{title}" class="red-text"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="email">Email:</label>
+                            <input th:field="*{email}" type="text" class="validate" required maxlength="220">
+                            <span th:errors="*{email}" class="red-text"></span>
                         </div>
                     </div>
 

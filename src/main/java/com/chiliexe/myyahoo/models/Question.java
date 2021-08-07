@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
@@ -30,6 +31,11 @@ public class Question {
 
     @Column(length = 255, nullable = false)
     private String slug;
+
+    @Column(nullable = false, unique = true)
+    @NotBlank(message = "Campo email deve ser preenchido")
+    @Email
+    private String email;
 
     @Column(columnDefinition = "TEXT")
     @NotBlank(message = "Campo Descrição deve ser preenchido")

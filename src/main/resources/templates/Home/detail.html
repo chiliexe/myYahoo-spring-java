@@ -1,0 +1,68 @@
+<html layout:decorate="layout">
+
+
+    <div class="container" layout:fragment="content">
+
+        <div class="card">
+            <div class="card-content">
+                <a  id="resp" class="btn waves-effect"><i class="material-icons right">clear_all</i>Respodner</a>
+                <!-- th:href="@{|/detalhe/${slug}#content|}" -->
+                <div class="card-title">
+                    <h4 class="center" th:text="${question.title}"></h4>
+                </div>
+                <div class="card-content">
+                    <p th:text="${question.description}"></p>
+                </div>
+                <hr>
+
+                <h5 class="center">Respostas</h5>
+            </div>
+            <div class="card-section" id="respostas">
+
+                
+                <div class="row">
+                    <form method="POST" class="col s12" 
+                        th:object="${reply}" 
+                        th:action="@{|/detalhe/${question.slug}/comentar|}">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="content">Deixe sua resposta</label>
+                                <textarea class="materialize-textarea" id="content" th:field="*{content}"></textarea>
+                                <span th:errors="*{content}" class="text-red"></span>
+                            </div>
+                        </div>
+                        <button class="btn waves-effect">Enviar</button>
+                    </form>
+                </div>
+
+                <div class="row" th:each="reply : ${question.replies}">
+                    <div class="col s1"><img src="/images/index.png" width="100%" alt=""></div>
+                    <div class="col s11">
+                        <div class="card">
+                            <div class="card-content">
+                                <p th:text="${reply.content}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            
+                <div class="row" th:if="${question.replies.size() == 0}">
+                    <div class="col s12">
+                        <p class="center" style="color: red;">Nenhuma resposta encontrada</p>
+                    </div>
+                </div>
+                    
+
+
+            </div>
+        </div>
+
+        <script>
+            document.querySelector("#resp").addEventListener("click", () => {
+                document.querySelector("#content").focus()
+            })
+        </script>
+    </div>
+
+</html>

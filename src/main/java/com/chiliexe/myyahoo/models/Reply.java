@@ -24,6 +24,8 @@ public class Reply {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
+    private boolean active;
+
     @ManyToOne
     private Question question;
 }

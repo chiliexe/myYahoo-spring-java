@@ -7,7 +7,7 @@
                 <div class="container">
                     <!--  for loop-->
 
-                        <div class="card row">
+                        <div class="card row" th:each="question : ${questions}">
                             <div class="col s4">
                                 <span style="text-align: center;">
                                     <img src="/images/index.png" alt="" width="70%">
@@ -15,15 +15,14 @@
                             </div>
                             <div class="col s8">
                                 <span class="card-title center">
-                                    <h6>titulo da sua pergunta é muito impoertante</h6>
+                                    <h6 th:text="${question.title}"></h6>
                                 </span>
                                 <div class="card-content">
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore quaerat rem architecto sed vitae quisquam 
-                                        eligendi dolor dolorem at pariatur laboriosam commodi</p>
+                                    <p th:text="${question.description}"></p>
                                 </div>
                             </div>
                             <div class="col s12">
-                                <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id" class="btn waves-effect center">
+                                <a th:href="@{|/detalhe/${question.slug}|}" class="btn waves-effect center">
                                     <i class="material-icons right">arrow_forward</i> Saber mais
                                 </a>
                             </div>

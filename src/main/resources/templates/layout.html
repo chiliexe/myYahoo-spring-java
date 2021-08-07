@@ -13,7 +13,7 @@
         <div class="nav-wrapper teal darken-2 container">
             <a th:href="@{/}" class="brand-logo right">My Yahoo</a>
             <ul id="nav-mobile" class="left hide-on-med-and-down">
-                <li><a asp-action="Index">Início</a></li>
+                <li><a th:href="@{/}">Início</a></li>
                 <li><a>Mais Vistas</a></li>
                 <li><a>Categorias</a></li>
                 <li><a asp-action="About">Sobre</a></li>
@@ -21,7 +21,6 @@
         </div>
     </nav>
 
-    
     <div layout:fragment="content"></div>
 
 
