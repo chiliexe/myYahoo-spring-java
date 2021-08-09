@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.validation.Valid;
 
 import com.chiliexe.myyahoo.models.Question;
+import com.chiliexe.myyahoo.models.QuestionDto;
 import com.chiliexe.myyahoo.repositories.QuestionRepository;
 import com.chiliexe.myyahoo.utils.EmailSender;
 import com.github.slugify.Slugify;
@@ -31,7 +32,11 @@ public class QuestionService {
 
         return question;
     }
-
+    public Question findByEmailAndKey(QuestionDto dto)
+    {
+        var question = repository.findByEmailAndAccessKey(dto.getEmail(), dto.getAccessKey());
+        return question;
+    }
     public List<Question> findAllSummaryContent()
     {
         List<Question> questions = repository.findAll();
@@ -58,7 +63,13 @@ public class QuestionService {
     }
     public Question update(Question question, Long id)
     {
-        return null;
+        Question findModel = repository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+
+        findModel.setTitle(question.getTitle() + " (editado)");
+        findModel.setDescription(question.getDescription());
+
+        return repository.save(findModel);
     }
     
 }

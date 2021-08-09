@@ -6,7 +6,6 @@
         <div class="card">
             <div class="card-content">
                 <a  id="resp" class="btn waves-effect"><i class="material-icons right">clear_all</i>Respodner</a>
-                <!-- th:href="@{|/detalhe/${slug}#content|}" -->
                 <div class="card-title">
                     <h4 class="center" th:text="${question.title}"></h4>
                 </div>
@@ -15,11 +14,6 @@
                 </div>
                 <hr>
 
-                <h5 class="center">Respostas</h5>
-            </div>
-            <div class="card-section" id="respostas">
-
-                
                 <div class="row">
                     <form method="POST" class="col s12" 
                         th:object="${reply}" 
@@ -34,6 +28,13 @@
                         <button class="btn waves-effect">Enviar</button>
                     </form>
                 </div>
+                
+                <h5 class="center">Respostas</h5>
+            </div>
+            <div class="card-section" id="respostas">
+
+                
+                
 
                 <div class="row" th:each="reply : ${question.replies}">
                     <div class="col s1"><img src="/images/index.png" width="100%" alt=""></div>

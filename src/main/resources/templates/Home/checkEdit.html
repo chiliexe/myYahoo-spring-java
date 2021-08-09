@@ -1,0 +1,38 @@
+<html layout:decorate="layout">
+
+    <head>
+        <title>MyYahoo - verificação - editar pergunta</title>
+    </head>
+
+
+    <div layout:fragment="content">
+        <div class="card">
+
+            <div class="card-content">
+                <div class="card-title">
+                    <h5 class="center">Favor entrar com sua chave de acesso</h5>
+                </div>
+                <hr>
+               <div class="card-content">
+                <blockquote th:if="${msg}" class="red-text">Email ou chave de acesso incorretos</blockquote>
+                <form method="POST" th:object="${dto}">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <label for="email">Email</label>
+                            <input  type="email" class="validate" th:field="*{email}" required maxlength="220">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <label for="key">Chave de Acesso</label>
+                            <input  type="text" class="validate" th:field="*{accessKey}" required maxlength="220">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn waves-effect">Editar</button>
+                </form>
+               </div>
+            </div>
+        </div>
+    </div>
+</html>

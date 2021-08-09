@@ -6,8 +6,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class MyYahooApplicationTests {
 
+	
+
 	@Test
-	void contextLoads() {
+	void emailSanderTest() {
+
 	}
 
 }

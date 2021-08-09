@@ -10,59 +10,63 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.chiliexe.myyahoo.config.EmailProperties;
 import com.chiliexe.myyahoo.models.Question;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EmailSender {
-    
+
+    @Autowired
+    private EmailProperties properties;
+
+
     public void send(Question question)
     {
         // data
+        String user = properties.getUsername();
+        String password = properties.getPassword();
         String to = question.getEmail();
-        String from = "chiliexebr@gmail.com";
-        String host = "smtp.gmail.com";
-        Properties props = System.getProperties();
+        String linkEditar = "http://localhost:8080/detalhe/editar";
+        String link = "http://localhost:8080/detalhe/" + question.getSlug();
+        
 
         String html = "<h4>Todas as informações da sua pergunda</h4>" +
         "<p>Dúvida: %s</p>" +
-        "<p>Para editar esta pergunta basta seguir teste link: <a href='%s'></a></p>" +
-        "<p>Para acompanhar esta pergunta, guarde o link: <a href='%s'></a></p>" +
+        "<p>Para editar esta pergunta basta seguir teste link: %s </p>" +
+        "<p>Para acompanhar esta pergunta, guarde o link: %s </p>" +
         "<p>Código de acesso: <strong>%s</strong></p>" +
         "<br><br>" +
         "<span>Favor não responder este email <br>Atenciosamente MyYahoo</span>";
 
+        String fhtml = String.format(
+            html, question.getTitle(), linkEditar, link, question.getAccessKey() 
+        );
+
         // Setup email server
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.port", "465");
-        props.put("mail.smtp.ssl.enable", "true");
-        props.put("mail.smtp.auth", "true");
+        Properties prop = System.getProperties();
+        prop.put("mail.smtp.host", "smtp.gmail.com");
+        prop.put("mail.smtp.port", "587");
+        prop.put("mail.smtp.auth", "true");
+        prop.put("mail.smtp.socketFactory.port", "465");
+        prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 
         // auth
-        Session session = Session.getInstance(props, new Authenticator(){
+        Session session = Session.getInstance(prop, new Authenticator(){
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(from, "Anode2019");
+                return new PasswordAuthentication(user,password);
             }
         });
-        session.setDebug(true);
-
         try {
             
             MimeMessage message = new MimeMessage(session);
-
-            message.setFrom(new InternetAddress(from));
+            message.setFrom(new InternetAddress(user));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
             message.setSubject("(MyYahoo) Informações da sua pergunta ");
-            message.setContent(
-                String.format(
-                    html, question.getTitle(),
-                    "localhost:8080/detalhe/editar",
-                    "localhost:8080/detalhe/" + question.getSlug(),
-                    question.getAccessKey() 
-                ),
-                "text/html");
+            message.setContent(fhtml, "text/html");
 
             Transport.send(message);
 
@@ -73,3 +77,4 @@ public class EmailSender {
     }
 
 }
+

@@ -8,4 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface QuestionRepository extends JpaRepository<Question, Long> {
     Optional<Question> findBySlug(String slug);
+    Question findByEmailAndAccessKey(String email, String key);
 }

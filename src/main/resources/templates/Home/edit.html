@@ -1,0 +1,62 @@
+<html layout:decorate="layout">
+    <head>
+        <title>MyYahoo - Editar sua dúvida</title>
+    </head>
+
+
+    <div layout:fragment="content">
+        <div class="card">
+
+            <div class="card-title">
+                <h5 class="center">Atualize sua dúvida !!</h5>
+            </div>
+
+            <div class="card-content">
+                
+                <form method="POST" th:action="@{|/detalhe/editar/${question.slug}|}" th:object="${question}">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="title">Título</label>
+                            <input th:field="*{title}" type="text" class="validate" required maxlength="220">
+                            <span th:errors="*{title}" class="red-text"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="email">Email (Não pode ser alterado):</label>
+                            <input th:field="*{email}" type="text" th:value="${question.email}"
+                                class="validate" required maxlength="220">
+                            <span th:errors="*{email}" class="red-text"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="description">Descrição</label>
+                            <textarea th:field="*{description}" cols="10" rows="10" 
+                                placeholder="type here... block of text"
+                                type="text" 
+                                class="materialize-textarea">    
+                            </textarea>
+                            <span th:errors="*{description}" class="red-text"></span>
+                        </div>
+                    </div>
+                    
+
+
+                    <!--
+                    <input type="hidden" 
+                        th:name="${_csrf.parameterName}"
+                        th:value="${_csrf.token}">
+                        -->
+
+                    <button type="submit" class="btn waves-effect">Enviar</button>
+                    <a class="btn waves-effect red right">Voltar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</html>
